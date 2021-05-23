@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rick and Morty 2.0</title>
+    <!-- google fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik+Mono+One&display=swap" rel="stylesheet">
+    <!-- font awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+    <!-- estilos propios -->
+    <link rel="stylesheet" href="./styles/main.css">
+</head>
+<body>
+    <header id="header">
+        <div id="text-header">
+            <h1>Another Rick and Morty app</h1>
+        </div>
+        <div id="img-header">
+            <img src="./img/rickheader.png" alt="rick">
+        </div>
+    </header>
+    <main>
+        <div>
+            <p id="main-paragraph">Get characters, episodes or locations of Rick & Morty</p>
+            <div class="btnContainer">
+                <button class="obtainPJ btnGeneral">Get Characters</button>
+                <button class="obtainEP btnGeneral">Get Episodes</button>
+                <button class="obtainLT btnGeneral">Get Locations</button>
+                <button class="clean btnGeneral">Clean</button>
+            </div>
+            <div class="moveContainer">
+                <i class="far fa-arrow-alt-circle-left prev"></i>
+                <p id="loading">Loading info</p>
+                <i class="far fa-arrow-alt-circle-right next"></i>
+            </div>
+        </div>
+        
+        <div id="all"> <!-- acá van toda la info.. --></div>    
+       
+    </main>
+    <script type="module" src="index.js"></script>
+</body>
+</html>
