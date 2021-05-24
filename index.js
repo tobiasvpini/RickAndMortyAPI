@@ -4,58 +4,31 @@ const baseURL  = "https://rickandmortyapi.com/api";
 
 let fragment = new DocumentFragment();
 
-document.querySelector(".obtainPJ").addEventListener("click", (e) => {
-    e.preventDefault();
-    e.stopImmediatePropagation();
+document.querySelector("#obtainPJ").addEventListener("click", async () => {
+    const charactersContainer = document.querySelector("#all");
 
-    document.body.style.overflowY = 'visible';
+    const response = await fetch(baseURL);
+    const data = await response.json();
+    const characters = await data.characters;
+    let charactersArray = [];
 
-    fetch(baseURL)
-    .then(response => response.json())
-    .then(data => {
-        const charactersContainer = document.querySelector("#all");
-        const loading = document.querySelector("#loading");
-        const characters = data.characters;
-        let charactersArray = [];
+    changingLoadingMessage("characters");
+    
+    const responseCharacters = await fetch(characters);
+    const dataCharacters = await responseCharacters.json();
+    const obtainedCharacters = await function (dataCharacters) {                
+        charactersArray = loadingCharactersObject(dataCharacters.results);
+        for(let i = 0; i < charactersArray.length; i++){
+            fragment.append(createHTMLElements(charactersArray[i]));
+        }
+        charactersContainer.append(fragment);
+    }
+    obtainedCharacters(dataCharacters);             
+});
 
-        loading.textContent = 'Characters obtained!';
-        loading.classList += 'postLoadGetCharacters';
-        
-        fetch(characters)
-            .then(resp => resp.json())
-            .then(data => {
-                let i = 1;
-                let nextPage = `https://rickandmortyapi.com/api/character?page=${i+1}`;
-                let initialPage = `https://rickandmortyapi.com/api/character?page=${i}`;
-                let prevPage = `https://rickandmortyapi.com/api/character?page=${i-1}`;
-                
-                charactersArray = loadingCharactersObject(data.results);
-                for(let i = 0; i < charactersArray.length; i++){
-                    fragment.append(createHTMLElements(charactersArray[i]));
-                }
-                charactersContainer.append(fragment);
-            })         
-    });
-})
-
-
-document.querySelector(".clean").addEventListener("click", (e) => {
-    e.preventDefault();
-    e.stopImmediatePropagation();
- 
-    document.querySelector("#loading").textContent = "Cleaning screan..";
-
-    const container = document.querySelector("#all");
-
-    setInterval(() => {
-            if(container.lastElementChild){
-                container.removeChild(container.firstElementChild);
-            } else{
-                document.querySelector("#loading").textContent = "Loading info";
-            }
-    }, 350);
-
-})
+function changingLoadingMessage(type){
+    document.querySelector("#loading").textContent =  `${type} obtained!`;
+}
 
 const loadingCharactersObject = (characters) => {
     let charactersArray = [];
@@ -97,3 +70,53 @@ const addingClasses = (characterContainer, name, status, species, location) => {
         name.className += ' largeName';
     }
 }
+
+document.querySelector("#clear").addEventListener("click", () => {
+    intervalTrigger();
+});
+
+function cleaningDom(){
+    const container = document.querySelector("#all");
+    document.querySelector("#loading").textContent = "Cleaning screan..";
+
+    if(container.firstElementChild){
+        container.removeChild(container.firstElementChild);
+        return true;
+    } else{
+        document.querySelector("#loading").textContent = "Loading info";
+        return false;
+    }
+}
+
+function intervalTrigger()  {
+    let interval = setInterval(function() {
+        let myBoolean = cleaningDom();
+        if(!myBoolean){
+            window.clearInterval(interval); 
+        }
+    }, 0);
+};
+
+document.querySelector("#obtainEP").addEventListener("click", async() => {
+    const episodesContainer = document.querySelector("#all");
+
+    const response = await fetch(baseURL);
+    const data = await response.json();
+    const episodes = await data.episodes;
+    let episodesArray = [];
+
+    changingLoadingMessage("episodes");
+    
+    const responseEpisodes = await fetch(episodes);
+    const dataEpisodes = await responseEpisodes.json();
+    const obtainedEpisodes = await function (dataEpisodes) {                
+        episodesArray = loadingEpisodesObject(dataEpisodes.results);
+        for(let i = 0; i < episodesArray.length; i++){
+            fragment.append(createHTMLElements(episodesArray[i]));
+            episodesContainer.append(fragment);
+        }
+    }
+    obtainedEpisodes(dataEpisodes);    
+})
+
+
