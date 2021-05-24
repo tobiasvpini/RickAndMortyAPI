@@ -10,11 +10,9 @@ body{
     background-color: rgb(111, 111, 202);
     color: white;
     font-family: 'Rubik Mono One', sans-serif;
-    height: 100%;
     margin: 0;
     padding: 0;
     width: 100%;
-    overflow-y: hidden;
 }
 
 #all{
@@ -96,17 +94,17 @@ body{
     margin: 50px;
 }
 
-.obtainPJ{
+#obtainPJ{
     background-color:  var(--dark-blue);
     color: var(--white);
 }
 
-.obtainEP{
+#obtainEP{
     background-color: var(--main-blue);
     color: var(--white);
 }
 
-.obtainLT{
+#obtainLT{
     background-color: var(--soft-blue);
     color: var(--white);
 }
@@ -117,13 +115,14 @@ body{
     margin-top: 75px;
 }
 
-.postLoadGetCharacters, #loading{
+#loading{
     color: rgba(16, 16, 73, 1);
     margin: 0 0px 100px 0;
     text-align: center;
-    width: 250px;
+    width: 200px;
     border: solid var(--main-blue);
     background-color: rgba(16, 16, 73, 0.3);
+    height: 40px;
 }
 
 .prev{
