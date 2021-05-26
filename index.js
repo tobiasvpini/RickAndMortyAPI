@@ -42,7 +42,7 @@ const loadingCharactersObject = (characters) => {
 
 const createHTMLCharactersElements = (character) => {
     const characterContainer = document.createElement('div');
-    const name = document.createElement('h3');
+    const name = document.createElement('h4');
     const status = document.createElement('p');
     const species = document.createElement('p');
     const location = document.createElement('p');
@@ -131,30 +131,38 @@ const loadingEpisodesObject = (episodes) => {
 
 const createHTMLEpisodesElements = (episode) => {
     const episodeContainer = document.createElement('div');
-    const name = document.createElement('h3');
+    const name = document.createElement('h4');
     const episodeName = document.createElement('p');
     const air_date = document.createElement('p');
     const id = document.createElement('p');
+    const img = document.createElement('img');
 
     name.textContent = episode.name;
     id.textContent = `ID: ${episode.id}`;
     episodeName.textContent = `Episode: ${episode.episode}`;
     air_date.textContent = `Air date: ${episode.air_date}`;
+    img.src = './img/episodeImage.jpg';
+    addingClassesToEpisodes(img, episodeContainer, name, id, air_date, episodeName);
 
-    addingClassesToEpisodes(episodeContainer, name, id, air_date, episodeName);
-
-    episodeContainer.append(name, id, episodeName, air_date);
+    episodeContainer.append(img, name, id, episodeName, air_date);
 
     return episodeContainer;
 }
 
-const addingClassesToEpisodes = (episodesContainer, name, id, air_date, episodeName) => {
+const addingClassesToEpisodes = (img, episodesContainer, name, id, air_date, episodeName) => {
     episodesContainer.className = 'episodes-container';
     name.className = 'name';
     id.className = 'id';
     air_date.className = 'air_date';
     episodeName.className = 'episodeName';
-    if(name.textContent.length > 20){
+    img.className = 'episodeImg';
+    if(name.textContent.length >= 20 && name.textContent.length < 30){
         name.className += ' largeName';
+    } else if(name.textContent.length >= 30 && name.textContent.length < 35){
+        name.className += ' superLargeName';
+    } else if(name.textContent.length >= 35){
+        name.className += ' ultraSuperLargeName';
     }
 }
+
+

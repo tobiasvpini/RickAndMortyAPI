@@ -19,7 +19,7 @@ body{
     display: flex;
     flex-wrap: wrap;
     height: 1250px;
-    justify-content: space-around;
+    justify-content: space-between;
     margin: 0 auto;
     width: 90%;
 }
@@ -44,7 +44,15 @@ body{
     font-size: 13px;
 }
 
-.status, .species, .location{
+.superLargeName{
+    font-size: 11px;
+}
+
+.ultraSuperLargeName{
+    font-size: 10px;
+}
+
+.status, .species, .location, .id, .episodeName, .air_date{
     margin: 20px 25px;
     font-size: 0.6rem;
 }
@@ -131,4 +139,16 @@ body{
 
 .next{
     font-size: 2.2rem;
+}
+
+.episodeImg{
+    width: 350px;
+    height: 175px;
+}
+
+.episodes-container{
+    border: 2px solid black;
+    margin-bottom: 50px;
+    width: 350;
+    background-color: var(--main-blue);
 }
