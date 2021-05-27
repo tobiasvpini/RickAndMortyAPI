@@ -48,17 +48,21 @@ const createHTMLCharactersElements = (character) => {
     const location = document.createElement('p');
     const img = document.createElement('img');
 
-    name.textContent = character.name;
-    status.textContent = `Status: ${character.status}`;
-    species.textContent = `Specie: ${character.species}`;
-    location.textContent = `Location: ${character.location}`;
-    img.src = character.image;
+    loadInfoInCharactersElements(character, name, status, species, location, img);
 
     addingClassesToCharacters(characterContainer, name, status, species, location);
 
     characterContainer.append(img, name, status, species, location);
 
     return characterContainer;
+}
+
+const loadInfoInCharactersElements = (character, name, status, species, location, img) => {
+    name.textContent = character.name;
+    status.textContent = `Status: ${character.status}`;
+    species.textContent = `Specie: ${character.species}`;
+    location.textContent = `Location: ${character.location}`;
+    img.src = character.image;
 }
 
 const addingClassesToCharacters = (characterContainer, name, status, species, location) => {
@@ -105,7 +109,7 @@ document.querySelector("#obtainEP").addEventListener("click", async() => {
     const data = await response.json();
     const episodes = await data.episodes;
     let episodesArray = [];
-    console.log(episodes)
+    
     changingLoadingMessage("episodes");
     
     const responseEpisodes = await fetch(episodes);
@@ -137,16 +141,21 @@ const createHTMLEpisodesElements = (episode) => {
     const id = document.createElement('p');
     const img = document.createElement('img');
 
-    name.textContent = episode.name;
-    id.textContent = `ID: ${episode.id}`;
-    episodeName.textContent = `Episode: ${episode.episode}`;
-    air_date.textContent = `Air date: ${episode.air_date}`;
-    img.src = './img/episodeImage.jpg';
+    loadInfoInEpisodesContainer(episode, name, id, episodeName, air_date, img);
+
     addingClassesToEpisodes(img, episodeContainer, name, id, air_date, episodeName);
 
     episodeContainer.append(img, name, id, episodeName, air_date);
 
     return episodeContainer;
+}
+
+const loadInfoInEpisodesContainer = (episode, name, id, episodeName, air_date, img) => {
+    name.textContent = episode.name;
+    id.textContent = `ID: ${episode.id}`;
+    episodeName.textContent = `Episode: ${episode.episode}`;
+    air_date.textContent = `Air date: ${episode.air_date}`;
+    img.src = './img/episodeImage.jpg';
 }
 
 const addingClassesToEpisodes = (img, episodesContainer, name, id, air_date, episodeName) => {
