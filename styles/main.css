@@ -149,6 +149,7 @@ body{
 .episodes-container{
     border: 2px solid black;
     margin-bottom: 50px;
-    width: 350;
+    width: 350px;
+    height: 400px;
     background-color: var(--main-blue);
 }
