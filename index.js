@@ -5,16 +5,16 @@ const baseURL  = "https://rickandmortyapi.com/api";
 
 let fragment = new DocumentFragment();
 
-document.querySelector("#obtainPJ").addEventListener("click", async () => {
+document.querySelector("#obtainPJ").addEventListener("click",  () => {
+    getCharacterInfoFromDataReceived();
+});
+
+async function getDataCharactersFromAPI(){
+    let charactersArray = [];
     const charactersContainer = document.querySelector("#all");
-    
     const response = await fetch(baseURL);
     const data = await response.json();
     const characters = await data.characters;
-    let charactersArray = [];
-
-    changingLoadingMessage("characters");
-    
     const responseCharacters = await fetch(characters);
     const dataCharacters = await responseCharacters.json();
     const obtainedCharacters = await function (dataCharacters) {                
@@ -24,8 +24,13 @@ document.querySelector("#obtainPJ").addEventListener("click", async () => {
         }
         charactersContainer.append(fragment);
     }
-    obtainedCharacters(dataCharacters);             
-});
+    obtainedCharacters(dataCharacters);
+}
+
+async function getCharacterInfoFromDataReceived(){
+    await getDataCharactersFromAPI();
+    changingLoadingMessage("characters");
+}
 
 function changingLoadingMessage(type){
     document.querySelector("#loading").textContent =  `${type} obtained!`;
@@ -103,15 +108,22 @@ function intervalTrigger()  {
 };
 
 document.querySelector("#obtainEP").addEventListener("click", async() => {
+    getEpisodeInfoFromDataReceived();
+})
+
+async function getEpisodeInfoFromDataReceived(){
+    await getDataEpisodesFromAPI();
+    changingLoadingMessage("episodes");
+}
+
+async function getDataEpisodesFromAPI(){
+    let episodesArray = [];
+
     const episodesContainer = document.querySelector("#all");
 
     const response = await fetch(baseURL);
     const data = await response.json();
     const episodes = await data.episodes;
-    let episodesArray = [];
-    
-    changingLoadingMessage("episodes");
-    
     const responseEpisodes = await fetch(episodes);
     const dataEpisodes = await responseEpisodes.json();
     const obtainedEpisodes = await function (dataEpisodes) {                
@@ -121,8 +133,8 @@ document.querySelector("#obtainEP").addEventListener("click", async() => {
             episodesContainer.append(fragment);
         }
     }
-    obtainedEpisodes(dataEpisodes);    
-})
+    obtainedEpisodes(dataEpisodes);
+}
 
 const loadingEpisodesObject = (episodes) => {
     let episodesArray = [];
