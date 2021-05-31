@@ -24,24 +24,26 @@ body{
     width: 90%;
 }
 
-.character-container{
+.character-container, .episodes-container, .location-container{
     background-color: var(--main-blue);
     border: 2px solid var(--dark-blue);
     height: 450px;
     margin-top: 50px;
     width: 300px;
+    overflow-x: scroll;
 }
 
-.name{
+.nameOfCharacter, .nameOfEpisode, .nameOfLocation{
     background-color: var(--dark-blue);
     color: var(--white);
     line-height: 1.8rem;
     margin-top: -5px;
     text-align: center;
+    width: 300px; 
 }
 
 .largeName{
-    font-size: 13px;
+    font-size: 12px;
 }
 
 .superLargeName{
@@ -52,7 +54,7 @@ body{
     font-size: 10px;
 }
 
-.status, .species, .location, .id, .episodeName, .air_date{
+.status, .species, .location, .id, .episodeName, .air_date, .type, .dimension, .residents{
     margin: 20px 25px;
     font-size: 0.6rem;
 }
@@ -142,14 +144,32 @@ body{
 }
 
 .episodeImg{
-    width: 350px;
+    width: 300px;
     height: 175px;
 }
 
-.episodes-container{
-    border: 2px solid black;
-    margin-bottom: 50px;
-    width: 350px;
-    height: 400px;
-    background-color: var(--main-blue);
+.nameOfCharacter{
+    position: sticky;
 }
+
+.residents{
+    margin-left: -15px;
+    list-style: none;
+}
+
+.residents li{
+    font-size: 8px;
+}
+
+.character-container::-webkit-scrollbar, .episode-container::-webkit-scrollbar, .location-container::-webkit-scrollbar {
+    width: 2px;     /* Tamaño del scroll en vertical */
+    height: 0px;    /* Tamaño del scroll en horizontal */
+}
+
+.character-container::-webkit-scrollbar-thumb, .episode-container::-webkit-scrollbar-thumb, .location-container::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: var(--white);
+}
+
+
+
