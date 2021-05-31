@@ -1,5 +1,6 @@
 import Character from "./objects/Character.js";
 import Episodes from "./objects/Episodes.js";
+import Location from "./objects/Location.js";
 
 const baseURL  = "https://rickandmortyapi.com/api";
 
@@ -72,7 +73,7 @@ const loadInfoInCharactersElements = (character, name, status, species, location
 
 const addingClassesToCharacters = (characterContainer, name, status, species, location) => {
     characterContainer.className = 'character-container';
-    name.className = 'name';
+    name.className = 'nameOfCharacter';
     status.className = 'status';
     species.className = 'species';
     location.className = 'location';
@@ -107,7 +108,7 @@ function intervalTrigger()  {
     }, 75);
 };
 
-document.querySelector("#obtainEP").addEventListener("click", async() => {
+document.querySelector("#obtainEP").addEventListener("click", () => {
     getEpisodeInfoFromDataReceived();
 })
 
@@ -172,7 +173,7 @@ const loadInfoInEpisodesContainer = (episode, name, id, episodeName, air_date, i
 
 const addingClassesToEpisodes = (img, episodesContainer, name, id, air_date, episodeName) => {
     episodesContainer.className = 'episodes-container';
-    name.className = 'name';
+    name.className = 'nameOfEpisode';
     id.className = 'id';
     air_date.className = 'air_date';
     episodeName.className = 'episodeName';
@@ -186,4 +187,83 @@ const addingClassesToEpisodes = (img, episodesContainer, name, id, air_date, epi
     }
 }
 
+document.querySelector("#obtainLT").addEventListener("click",  () => {
+    getLocationInfoFromDataReceived();
+});
+
+async function getDataLocationFromAPI(){
+    let locationsArray = [];
+    const locationsContainer = document.querySelector("#all");
+    const response = await fetch(baseURL);
+    const data = await response.json();
+    const locations = await data.locations;
+    const responseLocations = await fetch(locations);
+    const dataLocations = await responseLocations.json();
+        
+    const obtainedLocation = await function (dataLocations) {                
+        locationsArray = loadingLocationObject(dataLocations.results);
+        for(let i = 0; i < locationsArray.length; i++){
+            fragment.append(createHTMLLocationsElements(locationsArray[i]));
+        }
+        locationsContainer.append(fragment);
+    }
+    obtainedLocation(dataLocations);   
+}
+
+async function getLocationInfoFromDataReceived(){
+    await getDataLocationFromAPI();
+    changingLoadingMessage("location");
+}
+
+const loadingLocationObject = (locations) => {
+    let locationsArray = [];
+    for(let location in locations){
+        locationsArray[location] = new Location(locations[location].id, locations[location].name, locations[location].type, locations[location].dimension, locations[location].residents);
+    }
+
+    return locationsArray;
+}
+
+const createHTMLLocationsElements = (location) => {
+    const locationContainer = document.createElement('div');
+    const name = document.createElement('h4');
+    const type = document.createElement('p');
+    const dimension = document.createElement('p');
+    const residents = document.createElement('ul');
+
+    loadInfoInLocationsElements(location, name, type, dimension, residents);
+
+    addingClassesToLocations(locationContainer, name, type, dimension, residents);
+
+    locationContainer.append(name, type, dimension, residents);
+
+    return locationContainer;
+}
+
+const loadInfoInLocationsElements = (location, name, type, dimension, residents) => {
+    name.textContent = location.name;
+    type.textContent = `Type: ${location.type}`;
+    dimension.textContent = `Dimension: ${location.dimension}`;
+    residents.textContent = "Residents: "
+    
+    for(let resident in location.residents){
+        residents.innerHTML += `<li>${location.residents[resident]}</li>`;
+    }
+
+}
+
+const addingClassesToLocations = (locationContainer, name, type, dimension, residents) => {
+    locationContainer.className = 'location-container';
+    name.className = 'nameOfLocation';
+    type.className = 'type';
+    dimension.className = 'dimension';
+    residents.className = 'residents';
+    if(name.textContent.length >= 20 && name.textContent.length < 30){
+        name.className += ' largeName';
+    }else if(name.textContent.length >= 30 && name.textContent.length < 35){
+        name.className += ' superLargeName';
+    } else if(name.textContent.length >= 35){
+        name.className += ' ultraSuperLargeName';
+    }
+}
 
