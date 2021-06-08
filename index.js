@@ -1,6 +1,6 @@
-import getDataCharactersFromAPI from "./logic/characters/getDataCharactersFromApi.js";
-import getDataEpisodesFromAPI from "./logic/episodes/getDataEpisodesFromApi.js";
-import getDataLocationFromAPI from "./logic/locations/getDataLocationFromApi.js";
+import obtainCharacters from "./view/characters/obtainCharacters.js";
+import obtainEpisodes from "./view/episodes/obtainEpisodes.js";
+import obtainLocations from "./view/locations/obtainLocations.js";
 import changingLoadingMessage from "./view/changingLoadingMessage.js";
 import cleaningDom from "./view/clean/cleaningDom.js";
 
@@ -11,7 +11,7 @@ document.querySelector("#obtainPJ").addEventListener("click",  () => {
 });
 
 async function getCharacterInfoFromDataReceived(){
-    await getDataCharactersFromAPI();
+    await obtainCharacters();
     changingLoadingMessage("Characters");
 }
 
@@ -20,7 +20,7 @@ document.querySelector("#obtainEP").addEventListener("click", () => {
 })
 
 async function getEpisodeInfoFromDataReceived(){
-    await getDataEpisodesFromAPI();
+    await obtainEpisodes();
     changingLoadingMessage("Episodes");
 }
 
@@ -29,7 +29,7 @@ document.querySelector("#obtainLT").addEventListener("click",  () => {
 });
 
 async function getLocationInfoFromDataReceived(){
-    await getDataLocationFromAPI();
+    await obtainLocations();
     changingLoadingMessage("location");
 }
 
